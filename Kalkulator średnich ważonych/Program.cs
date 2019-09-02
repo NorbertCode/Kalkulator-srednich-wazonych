@@ -46,34 +46,34 @@ namespace Kalkulator_średnich_ważonych
                 }
                 int i = 0;
                 float weights = 0;
-                float srednia = 0;
+                float average = 0;
                 while (i < grades.Count)
                 {
-                    srednia += grades[i].Item1 * grades[i].Item2;
+                    average += grades[i].Item1 * grades[i].Item2;
                     weights += grades[i].Item2;
                     i++;
                 }
-                srednia /= weights;
+                average /= weights;
                 StreamWriter sw = new StreamWriter(path, true);
-                string tempSrednia = "0";
+                string tempAverage = "0";
                 try
                 {
-                    tempSrednia = srednia.ToString().Substring(0, 4);
+                    tempAverage = average.ToString().Substring(0, 4);
                 }
                 catch(ArgumentOutOfRangeException e)
                 {
                     try
                     {
-                        tempSrednia = srednia.ToString().Substring(0, 3);
+                        tempAverage = average.ToString().Substring(0, 3);
                     }
                     catch(ArgumentOutOfRangeException f)
                     {
-                        tempSrednia = srednia.ToString().Substring(0, 1);
+                        tempAverage = average.ToString().Substring(0, 1);
                     }
                 }
-                sw.WriteLine(clas + ": " + tempSrednia);
+                sw.WriteLine(clas + ": " + tempAverage);
                 sw.Close();
-                Console.WriteLine(srednia);
+                Console.WriteLine(average);
             }
         }
     }
