@@ -9,7 +9,7 @@ namespace Kalkulator_średnich_ważonych
         static void Main(string[] args)
         {
             List<Tuple<float, float>> grades = new List<Tuple<float, float>>();
-            string path = "C:/Users/Norbert Drabiński/Desktop/srednie.txt";
+            string path = "srednie.txt";
             while (true)
             {
                 grades.Clear();
