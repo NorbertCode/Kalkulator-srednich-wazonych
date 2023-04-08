@@ -1,5 +1,2 @@
-Kalkulator średnich ważonych stworzony na osobiste potrzeby.
-# Jak używać:
-1. Podaj nazwę przedmiotu lub czegoś, z czym ma być kojarzona średnia.
-2. Podawaj oceny i wagi.
-3. Gdy skończysz zamiast oceny lub wagi napisz coś co nie jest liczbą.
+Weighted average calculator created for personal purposes. I used it for quite some time to calculate averages from my school grades.
+It creates a file with your school subjects and their averages.
