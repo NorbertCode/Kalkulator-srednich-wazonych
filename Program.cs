@@ -62,14 +62,12 @@ namespace WeightedAverageCalculator
                 }
 
                 // Calculate the average from the current subject
-                int i = 0;
-                float weightsSum = 0;
                 float gradesSum = 0;
-                while (i < grades.Count)
+                float weightsSum = 0;
+                foreach (Tuple<float, float> grade in grades)
                 {
-                    gradesSum += grades[i].Item1 * grades[i].Item2;
-                    weightsSum += grades[i].Item2;
-                    i++;
+                    gradesSum += grade.Item1 * grade.Item2;
+                    weightsSum += grade.Item2;
                 }
                 float average = gradesSum / weightsSum;
 
