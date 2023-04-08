@@ -21,14 +21,21 @@ namespace WeightedAverageCalculator
                 Console.Write("Subject: ");
                 string subject = Console.ReadLine();
 
+                if (subject == "exit")
+                    break;
+
                 // Loop for every grade
                 while (true)
                 {
                     Console.Write("Grade: ");
                     string strGrade = Console.ReadLine();
+                    if (strGrade == "next")
+                        break;
 
                     Console.Write("Weight: ");
                     string strWeight = Console.ReadLine();
+                    if (strWeight == "next")
+                        break;
 
                     // Remove + and - from grades before converting to numbers
                     float modifier = 0;
@@ -51,7 +58,7 @@ namespace WeightedAverageCalculator
                         grades.Add(Tuple.Create(grade, weight));
                     }
                     else
-                        break;
+                        Console.WriteLine("Invalid input. Values were omitted.");
                 }
 
                 // Calculate the average from the current subject
