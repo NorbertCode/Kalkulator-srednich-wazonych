@@ -2,58 +2,71 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Kalkulator_średnich_ważonych
+namespace WeightedAverageCalculator
 {
     class Program
     {
         static void Main(string[] args)
         {
             List<Tuple<float, float>> grades = new List<Tuple<float, float>>();
-            string path = "srednie.txt";
+            string path = "averages.txt";
+
+            Console.WriteLine("Write \'next\' in either the grade or weight field to go onto the next subject.")
+            Console.WriteLine("Write \'exit\' to stop the program.")
+
+            // Loop for every subject
             while (true)
             {
                 grades.Clear();
-                Console.Write("Przedmiot: ");
-                string clas = Console.ReadLine();
+                Console.Write("Subject: ");
+                string subject = Console.ReadLine();
 
+                // Loop for every grade
                 while (true)
                 {
-                    Console.Write("Ocena: ");
-                    string stGrade = Console.ReadLine();
-                    Console.Write("Waga: ");
-                    string stWeight = Console.ReadLine();
-                    float intGrade, intWeight;
-                    float temp = 0;
-                    if (stGrade.EndsWith("+"))
+                    Console.Write("Grade: ");
+                    string strGrade = Console.ReadLine();
+
+                    Console.Write("Weight: ");
+                    string strWeight = Console.ReadLine();
+
+                    // Remove + and - from grades before converting to numbers
+                    float modifier = 0;
+                    if (strGrade.EndsWith("+"))
                     {
-                        temp = 0.5f;
-                        stGrade = stGrade.Substring(0, stGrade.Length - 1);
+                        modifier = 0.5f;
+                        strGrade = strGrade.Substring(0, strGrade.Length - 1);
                     }
-                    else if (stGrade.EndsWith("-"))
+                    else if (strGrade.EndsWith("-"))
                     {
-                        temp = -0.25f;
-                        stGrade = stGrade.Substring(0, stGrade.Length - 1);
+                        modifier = -0.25f;
+                        strGrade = strGrade.Substring(0, strGrade.Length - 1);
                     }
 
-                    if (float.TryParse(stGrade, out intGrade) && float.TryParse(stWeight, out intGrade))
+                    float grade, weight;
+                    if (float.TryParse(strGrade, out grade) && float.TryParse(strWeight, out grade))
                     {
-                        intGrade = temp + int.Parse(stGrade);
-                        intWeight = temp + int.Parse(stWeight);
-                        grades.Add(Tuple.Create(intGrade, intWeight));
+                        grade = modifier + float.Parse(strGrade);
+                        weight = modifier + float.Parse(strWeight);
+                        grades.Add(Tuple.Create(grade, weight));
                     }
                     else
                         break;
                 }
+
+                // Calculate the average from the current subject
                 int i = 0;
-                float weights = 0;
-                float average = 0;
+                float weightsSum = 0;
+                float gradesSum = 0;
                 while (i < grades.Count)
                 {
-                    average += grades[i].Item1 * grades[i].Item2;
-                    weights += grades[i].Item2;
+                    gradesSum += grades[i].Item1 * grades[i].Item2;
+                    weightsSum += grades[i].Item2;
                     i++;
                 }
-                average /= weights;
+                float average = gradesSum / weightsSum;
+
+                // Write to file
                 StreamWriter sw = new StreamWriter(path, true);
                 string tempAverage = "0";
                 try
@@ -71,8 +84,9 @@ namespace Kalkulator_średnich_ważonych
                         tempAverage = average.ToString().Substring(0, 1);
                     }
                 }
-                sw.WriteLine(clas + ": " + tempAverage);
+                sw.WriteLine(subject + ": " + tempAverage);
                 sw.Close();
+
                 Console.WriteLine(average);
             }
         }
