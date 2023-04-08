@@ -11,8 +11,8 @@ namespace WeightedAverageCalculator
             List<Tuple<float, float>> grades = new List<Tuple<float, float>>();
             string path = "averages.txt";
 
-            Console.WriteLine("Write \'next\' in either the grade or weight field to go onto the next subject.")
-            Console.WriteLine("Write \'exit\' to stop the program.")
+            Console.WriteLine("Write \'next\' in either the grade or weight field to go onto the next subject.");
+            Console.WriteLine("Write \'exit\' to stop the program.");
 
             // Loop for every subject
             while (true)
