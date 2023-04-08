@@ -69,27 +69,11 @@ namespace WeightedAverageCalculator
                     gradesSum += grade.Item1 * grade.Item2;
                     weightsSum += grade.Item2;
                 }
-                float average = gradesSum / weightsSum;
+                decimal average = Math.Round((decimal)(gradesSum / weightsSum), 2);
 
                 // Write to file
                 StreamWriter sw = new StreamWriter(path, true);
-                string tempAverage = "0";
-                try
-                {
-                    tempAverage = average.ToString().Substring(0, 4);
-                }
-                catch(ArgumentOutOfRangeException e)
-                {
-                    try
-                    {
-                        tempAverage = average.ToString().Substring(0, 3);
-                    }
-                    catch(ArgumentOutOfRangeException f)
-                    {
-                        tempAverage = average.ToString().Substring(0, 1);
-                    }
-                }
-                sw.WriteLine(subject + ": " + tempAverage);
+                sw.WriteLine(subject + ": " + average);
                 sw.Close();
 
                 Console.WriteLine(average);
