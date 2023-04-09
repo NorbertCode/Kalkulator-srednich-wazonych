@@ -8,7 +8,6 @@ namespace WeightedAverageCalculator
     {
         static void Main(string[] args)
         {
-            List<Tuple<float, float>> grades = new List<Tuple<float, float>>();
             string path = "averages.txt";
 
             Console.WriteLine("Write \'next\' in either the grade or weight field to go onto the next subject.");
@@ -17,12 +16,14 @@ namespace WeightedAverageCalculator
             // Loop for every subject
             while (true)
             {
-                grades.Clear();
                 Console.Write("Subject: ");
                 string subject = Console.ReadLine();
 
                 if (subject == "exit")
                     break;
+
+                float gradesSum = 0f;
+                float weightsSum = 0f;
 
                 // Loop for every grade
                 while (true)
@@ -50,25 +51,24 @@ namespace WeightedAverageCalculator
                         strGrade = strGrade.Substring(0, strGrade.Length - 1);
                     }
 
-                    float grade, weight;
-                    if (float.TryParse(strGrade, out grade) && float.TryParse(strWeight, out grade))
+                    float grade = 0f, weight = 0f;
+                    if (float.TryParse(strGrade, out grade) && float.TryParse(strWeight, out weight))
                     {
-                        grade = modifier + float.Parse(strGrade);
-                        weight = modifier + float.Parse(strWeight);
-                        grades.Add(Tuple.Create(grade, weight));
+                        grade += modifier;
+
+                        gradesSum += grade * weight;
+                        weightsSum += weight;
                     }
                     else
                         Console.WriteLine("Invalid input. Values were omitted.");
                 }
 
-                // Calculate the average from the current subject
-                float gradesSum = 0;
-                float weightsSum = 0;
-                foreach (Tuple<float, float> grade in grades)
+                if (weightsSum == 0)
                 {
-                    gradesSum += grade.Item1 * grade.Item2;
-                    weightsSum += grade.Item2;
+                    Console.WriteLine("Not enough values to calculate average.");
+                    continue;
                 }
+
                 decimal average = Math.Round((decimal)(gradesSum / weightsSum), 2);
 
                 // Write to file
